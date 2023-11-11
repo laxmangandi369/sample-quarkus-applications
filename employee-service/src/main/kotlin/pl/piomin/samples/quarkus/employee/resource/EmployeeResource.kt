@@ -47,6 +47,23 @@ class EmployeeResource(val repository: EmployeeRepository) {
     fun findByFirstNameAndLastName(@PathParam firstName: String, @PathParam lastName: String): List<Employee>
             = repository.findByFirstNameAndLastName(firstName, lastName)
 
+
+            
+    @GET
+    @Timed(name = "findAll", unit = MetricUnits.MILLISECONDS)
+    fun findAll(): List<Employee> = repository.listAll()
+
+    @GET
+    @Path("/{id}")
+    @Timed(name = "findById", unit = MetricUnits.MILLISECONDS)
+    fun findById(@PathParam id: Long): Employee? = repository.findById(id)
+
+    @GET
+    @Path("/first-name/{firstName}/last-name/{lastName}")
+    @Timed(name = "findByFirstNameAndLastName", unit = MetricUnits.MILLISECONDS)
+    fun findByFirstNameAndLastName(@PathParam firstName: String, @PathParam lastName: String): List<Employee>
+            = repository.findByFirstNameAndLastName(firstName, lastName)
+
     @GET
     @Path("/salary/{salary}")
     @Timed(name = "findBySalary", unit = MetricUnits.MILLISECONDS)
